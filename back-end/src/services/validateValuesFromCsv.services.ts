@@ -34,7 +34,26 @@ const validateValuesFromCsv = async (
       ).toFixed(2)
     );
 
-    if (requestDifference != possibleDifference) {
+    const packQuery = "SELECT * FROM packs WHERE pack_id = ?"
+
+    const [pack] = await connection.promise().query(packQuery, [product.product_code])
+
+    let dbPack2: any;
+
+    if (Array.isArray(pack)) {
+        dbPack2 = pack;
+    }
+
+    if (dbPack2){
+        if(dbPack2.length > 1){
+          validatedResponse.push({
+            product_code: dbProduct.code,
+            name: dbProduct.name,
+            current_price: Number(dbProduct.sales_price),
+            new_Price: product.new_price,
+            broken_rule: "It's not possible to update the price of a pack made up of different products. Please, update the values of the products individually."
+          })          
+    }else if (requestDifference != possibleDifference) {
       validatedResponse.push({
         product_code: dbProduct.code,
         name: dbProduct.name,
@@ -58,7 +77,7 @@ const validateValuesFromCsv = async (
         new_Price: product.new_price,
       });
     }
-  }
+  }}
   return res.json({message: "Already to update.",data: validatedResponse});
 };
 
