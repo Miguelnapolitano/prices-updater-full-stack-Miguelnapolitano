@@ -40,7 +40,7 @@ const catchCsvValues = async (
     if (productArr[1].split(".")[1].length != 2){
         return res.status(400).json({
             error:
-                `Invalid new_price  value format at line ${lineNumber}. Expected two decimal places.`
+                `Invalid new_price value format at line ${lineNumber}. Expected two decimal places.`
           });
     }
 

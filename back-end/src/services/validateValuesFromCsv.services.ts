@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import {
   iProductsRequest,
   iProductResponse,
@@ -11,7 +11,7 @@ const validateValuesFromCsv = async (
 ): Promise<Response | void> => {
   const productsRequest: iProductsRequest[] = res.locals.productsRequest;
 
-  const validatedResponse: iProductResponse[] = []
+  const validatedResponse: iProductResponse[] = [];
 
   for (const product of productsRequest) {
     const query = "SELECT * FROM products WHERE code = ?";
@@ -23,39 +23,43 @@ const validateValuesFromCsv = async (
     let dbProduct: any;
 
     if (Array.isArray(rows)) {
-        dbProduct = rows[0];
+      dbProduct = rows[0];
     }
 
-    const possibleDifference = Number((dbProduct.sales_price * 0.1).toFixed(2))
+    const possibleDifference = Number((dbProduct.sales_price * 0.1).toFixed(2));
 
-    const requestDifference = Number((Math.abs(Number(product.new_price) - Number(dbProduct.sales_price))).toFixed(2))
+    const requestDifference = Number(
+      Math.abs(
+        Number(product.new_price) - Number(dbProduct.sales_price)
+      ).toFixed(2)
+    );
 
-    if (requestDifference != possibleDifference){
-        validatedResponse.push({
-            product_code: dbProduct.code, 
-            name: dbProduct.name,
-            current_price: Number(dbProduct.sales_price),
-            new_Price: product.new_price,
-            broken_rule: `It's only possible to adjust by R$ ${possibleDifference} above or below the current price.`
-        })
-    } else if (product.new_price < dbProduct.cost_price){
-        validatedResponse.push({
-            product_code: dbProduct.code, 
-            name: dbProduct.name,
-            current_price: Number(dbProduct.sales_price),
-            new_Price: product.new_price,
-            broken_rule: `Isn't possible to adjust values below the cost price which is R$ ${dbProduct.cost_price}.`
-        })
+    if (requestDifference != possibleDifference) {
+      validatedResponse.push({
+        product_code: dbProduct.code,
+        name: dbProduct.name,
+        current_price: Number(dbProduct.sales_price),
+        new_Price: product.new_price,
+        broken_rule: `It's only possible to adjust by R$ ${possibleDifference} above or below the current price.`,
+      });
+    } else if (product.new_price < dbProduct.cost_price) {
+      validatedResponse.push({
+        product_code: dbProduct.code,
+        name: dbProduct.name,
+        current_price: Number(dbProduct.sales_price),
+        new_Price: product.new_price,
+        broken_rule: `Isn't possible to adjust values below the cost price which is R$ ${dbProduct.cost_price}.`,
+      });
     } else {
-        validatedResponse.push({
-            product_code: dbProduct.code, 
-            name: dbProduct.name,
-            current_price: Number(dbProduct.sales_price),
-            new_Price: product.new_price
-        })
+      validatedResponse.push({
+        product_code: dbProduct.code,
+        name: dbProduct.name,
+        current_price: Number(dbProduct.sales_price),
+        new_Price: product.new_price,
+      });
     }
-}
-    return res.json(validatedResponse);
-}
+  }
+  return res.json({message: "Already to update.",data: validatedResponse});
+};
 
 export default validateValuesFromCsv;

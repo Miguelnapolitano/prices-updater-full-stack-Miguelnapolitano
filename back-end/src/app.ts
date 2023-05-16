@@ -11,4 +11,4 @@ app.listen(3000, async () => {
 });
 
 
-app.use("/updater", updaterRouter)
+app.use("", updaterRouter)

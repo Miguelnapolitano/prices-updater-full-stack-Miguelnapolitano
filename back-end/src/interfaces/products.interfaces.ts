@@ -11,5 +11,9 @@ interface iProductResponse {
     broken_rule?: string
 }
 
+interface iUpdateProduct extends iProductResponse{
+    pack_id: number
+}
 
-export { iProductsRequest, iProductResponse }
+
+export { iProductsRequest, iProductResponse, iUpdateProduct }
