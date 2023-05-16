@@ -40,7 +40,7 @@
     <li>Acesse a pasta do back-end: <code>cd back-end</code></li>
     <li>Instale as dependências: <code>npm install</code></li>
     <li>Configura as variáveis de ambiente seguindo o env.example</li>
-    <li>Rode a aplicação: <code>npm start</code></li>
+    <li>Rode a aplicação: <code>npm run dev</code></li>
     <li>O servidor estará rodando na porta 5000</li>
   </ol>
 
