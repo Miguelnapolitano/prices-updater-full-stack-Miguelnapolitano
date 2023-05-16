@@ -65,38 +65,22 @@
   <p>A resposta desta rota é um objeto JSON contendo a seguinte estrutura:</p>
 
   <pre>
-  {
-    [
-      {
-        "product_code": 16,
-        "name": "AZEITE  PORTUGUÊS  EXTRA VIRGEM GALLO 500ML",
-        "current_price": 22.54,
-        "new_Price": 22.54,
-        "broken_rule": "It's only possible to adjust by R$ 2.25 above or below the current price."
-      },
-      {
-        "product_code": 19,
-        "name": "ENERGÉTICO  RED BULL ENERGY DRINK 250ML",
-        "current_price": 9,
-        "new_Price": 9,
-        "broken_rule": "It's only possible to adjust by R$ 0.9 above or below the current price."
-      },
-      {
-        "product_code": 26,
-        "name": "ROLO DE PAPEL ALUMÍNIO WYDA 30CMX7,5M",
-        "current_price": 6.5,
-        "new_Price": 6.5,
-        "broken_rule": "It's only possible to adjust by R$ 0.65 above or below the current price."
-      },
-      {
-        "product_code": 18,
-        "name": "BEBIDA ENERGÉTICA VIBE 2L",
-        "current_price": 12,
-        "new_Price": 12,
-        "broken_rule": "It's only possible to adjust by R$ 1.2 above or below the current price."
-      }
-    ]
-  }
+  [
+	{
+		"product_code": 16,
+		"name": "AZEITE  PORTUGUÊS  EXTRA VIRGEM GALLO 500ML",
+		"current_price": 24.79,
+		"new_Price": 24.79,
+		"broken_rule": "Só é possível atualizar o valor em R$ 2.48 acima ou abaixo do preço atual."
+	},
+	{
+		"product_code": 18,
+		"name": "BEBIDA ENERGÉTICA VIBE 2L",
+		"current_price": 12,
+		"new_Price": 12,
+		"broken_rule": "Só é possível atualizar o valor em R$ 1.2 acima ou abaixo do preço atual."
+	}
+]
   </pre>
 
   <h3>Atualizar Preços - PATCH http://localhost:5000/update</h3>
